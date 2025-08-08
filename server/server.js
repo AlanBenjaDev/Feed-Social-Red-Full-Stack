@@ -1,16 +1,16 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql2');
+import dotenv from 'dotenv';
+dotenv.config();
 
-const db = require('./db');
-const usuariosRouter = require('./usuarios.js');
-const publicacionRouter = require('./publicacion.js');
-const comentarioRouter = require('./comentario.js');
+import express from 'express';
+import cors from 'cors';
+
+import db from './db.js';
+import usuariosRouter from './usuarios.js';
+import publicacionRouter from './publicacion.js';
+import comentarioRouter from './comentario.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 app.use(cors());
 app.use(express.json());
@@ -21,5 +21,5 @@ app.use('/api/publicaciones', publicacionRouter);
 app.use('/api/comentario', comentarioRouter);
 
 app.listen(port, () => {
-  console.log(`✅ Servidor corriendo en http://localhost:${port}`);
+  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
 });
