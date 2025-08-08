@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
-const pool = require('./db');
+const db = require('./db');
 const usuariosRouter = require('./usuarios');
 const publicacionRouter = require('./publicacion');
 const seguirSeguidosRouter = require('./seguirSeguidos');
