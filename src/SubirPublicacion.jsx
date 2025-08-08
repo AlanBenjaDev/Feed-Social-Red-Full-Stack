@@ -8,7 +8,7 @@ function SubirPublicacion() {
   const [publicaciones, setPublicaciones] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/publicaciones/verPublicaciones')
+    fetch('https://feed-social-red-full-stack.onrender.com/api/publicaciones/verPublicaciones')
       .then(res => res.json())
       .then(data => setPublicaciones(data))
       .catch(console.error);
@@ -30,7 +30,7 @@ function SubirPublicacion() {
 
 
     try {
-      const res = await fetch('http://localhost:3000/api/publicaciones/subirPublicacion', {
+      const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/publicaciones/subirPublicacion', {
         method: 'POST',
         body: formData,
       });

@@ -11,7 +11,7 @@ function VerPublicaciones() {
     const cargarPublicaciones = async () => {
       try {
         setCargando(true);
-        const res = await fetch('http://localhost:3000/api/publicaciones/verPublicaciones');
+        const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/publicaciones/verPublicaciones');
         if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
         const data = await res.json();
         setPublicaciones(data);
@@ -57,7 +57,7 @@ function VerPublicaciones() {
     }
 
     try {
-      const res = await fetch('http://localhost:3000/api/comentario/enviar', {
+      const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/comentario/enviar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -117,7 +117,7 @@ function VerPublicaciones() {
   }
 
   try {
-    const res = await fetch('http://localhost:3000/api/comentario/dar', {
+    const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/comentario/dar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -163,71 +163,76 @@ function VerPublicaciones() {
       {error && <p className="text-red-500">Error: {error}</p>}
 
       {publicaciones.map(publi => (
-        <div key={publi.publicacion_id} className="border rounded-lg p-4 mb-4">
-          <h2 className="font-semibold text-4xl">{publi.contenido}</h2>
-          {publi.img_url && (
-            <img
-              src={publi.img_url}
-              alt="Imagen"
-              className="w-80 max-h-90 object-cover my-2"
-            />
-          )}
+ <div key={publi.publicacion_id} className="border rounded-lg p-4 mb-4">
+    <p className="text-3xl text-black  mb-1"><strong>{publi.autor_publicacion}</strong> - {new Date(publi.created_at).toLocaleString()}</p>
 
-      
+  <h2 className="font-semibold text-2xl">{publi.contenido}</h2>
   
-     
+  {publi.img_url && (
+    <img
+      src={publi.img_url}
+      alt="Imagen"
+      className="w-80 max-h-90 object-cover my-2 rounded"
+    />
+  )}
 
-          {mensajes[publi.publicacion_id] && (
-            <p
-              className={`text-sm mt-2 mb-2 ${
-                mensajes[publi.publicacion_id].includes('correctamente')
-                  ? 'text-green-500'
-                  : 'text-red-500'
-              }`}
-            >
-              {mensajes[publi.publicacion_id]}
-            </p>
-          )}
+  <div className="flex items-center mb-2">
+    <button
+      onClick={() => darLike(publi.publicacion_id)}
+      className="text-red-600 text-3xl mr-2 hover:scale-110 transition-transform duration-300"
+    >
+      ❤️
+    </button>
+    <span className="text-xl text-gray-800">{publi.total_likes || 0} Me gusta</span>
+  </div>
 
-          <input
-            type="text"
-            placeholder="Escribe un comentario..."
-            className="w-80 p-2 border rounded-full"
-            rows={3}
-            value={nuevoComentario[publi.publicacion_id] || ''}
-            onChange={e =>
-              setNuevoComentario(prev => ({
-                ...prev,
-                [publi.publicacion_id]: e.target.value
-              }))
-            }
-          />
-          <button
-            onClick={() => enviarComentario(publi.publicacion_id)}
-            className="bg-sky-400 w-32 text-white px-4 py-2 rounded-full hover:bg-sky-700 transition duration-300"
-            disabled={!nuevoComentario[publi.publicacion_id]?.trim()}
-          >
-            Comentar
-          </button>
-             <button
-              onClick={() => darLike(publi.publicacion_id)}
-              className="text-red-800 text-3xl mr-2 hover:scale-110 transition-transform duration-300"
-            >
-              ❤️
-            </button>
-            <span className="text-2xl text-gray-800">
-              {publi.total_likes || 0} Me gusta
-            </span>
-               {(publi.comentarios?.length > 0) && (
-            <ul className="mt-2 mb-2 ">
-              {publi.comentarios.map((com, idx) => (
-                <li key={idx} className="border-t pt-1 text-2xl">
-                  <strong>Usuario {com.usuario_id}</strong>: {com.texto}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+  {mensajes[publi.publicacion_id] && (
+    <p
+      className={`text-sm mt-2 mb-2 ${
+        mensajes[publi.publicacion_id].includes('correctamente')
+          ? 'text-green-500'
+          : 'text-red-500'
+      }`}
+    >
+      {mensajes[publi.publicacion_id]}
+    </p>
+  )}
+
+  <textarea
+    placeholder="Escribe un comentario..."
+    className="w-80 p-2 border rounded-lg resize-none mb-2"
+    rows={3}
+    value={nuevoComentario[publi.publicacion_id] || ''}
+    onChange={e =>
+      setNuevoComentario(prev => ({
+        ...prev,
+        [publi.publicacion_id]: e.target.value
+      }))
+    }
+  />
+
+  <button
+    onClick={() => enviarComentario(publi.publicacion_id)}
+    className="bg-sky-400 w-32 text-white px-4 py-2 rounded-full hover:bg-sky-700 transition duration-300"
+    disabled={!nuevoComentario[publi.publicacion_id]?.trim()}
+  >
+    Comentar
+  </button>
+
+  {(publi.comentarios?.length > 0) && (
+    <ul className="mt-2 mb-2 max-h-48 overflow-y-auto border rounded p-2">
+      {publi.comentarios.map((com, idx) => (
+        <li key={idx} className="border-b py-1">
+          <strong>{com.autor_comentario || `Usuario ${com.usuario_id}`}</strong>:{' '}
+          {com.texto}
+          <span className="text-xs text-gray-500 ml-2">
+            {new Date(com.created_at).toLocaleString()}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
         
       ))}
     </div>

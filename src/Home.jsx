@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import PerfilCard from './PerfilCard'; // Asegurate que este nombre coincida con tu archivo
+
 
 function Home() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gradient-to-tr from-slate-100 to-white">
       
-      {/* Sección Hero o bienvenida */}
+     
       <div className="min-h-screen flex flex-col justify-center items-center text-center px-6 py-20">
         <h2 className="text-4xl text-blue-900 font-bold max-w-3xl">
           Encontrá los mejores Programadores En un solo lugar

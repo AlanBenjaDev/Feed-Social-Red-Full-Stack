@@ -34,7 +34,7 @@ function Publicaciones({ usuario_id, id, contenido, img_url, total_likes, coment
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/comentario/enviar', {
+      const response = await fetch('https://feed-social-red-full-stack.onrender.com/api/comentario/enviar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -62,7 +62,7 @@ function Publicaciones({ usuario_id, id, contenido, img_url, total_likes, coment
   const darLike = async () => {
    console.log("datos a enviar",{usuarioLogueadoId, id})
     try {
-      const res = await fetch('http://localhost:3000/api/comentario/dar', {
+      const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/comentario/dar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

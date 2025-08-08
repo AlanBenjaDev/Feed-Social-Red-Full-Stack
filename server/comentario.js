@@ -43,7 +43,7 @@ router.post('/enviar', async (req, res) => {
     `
     const values = [comentario.trim(), Number(publicacion_id), Number(usuario_id)];
 
-    const [result] = await pool.query(query, values);
+    const [result] = await db.query(query, values);
 
     res.status(201).json({
       success: true,
@@ -115,7 +115,7 @@ router.post('/dar', async (req, res) => {
 
     const values = [Number(publicacion_id), Number(usuario_id)];
 
-    const [result] = await pool.query(query, values);
+    const [result] = await db.query(query, values);
 
  
     res.status(201).json({

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // <-- Importante
+import { useNavigate } from 'react-router-dom'; 
 import {Link} from 'react-router-dom';
 
 function Create() {
@@ -13,7 +13,7 @@ function Create() {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:3000/api/usuarios/register', {
+      const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/usuarios/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user, email, password }),
@@ -23,7 +23,7 @@ function Create() {
 
       if (res.ok) {
         alert('Registro exitoso ✅');
-        navigate('/home'); // <-- Redirecciona al Home
+        navigate('/home'); 
       } else {
         alert(data.error || 'Error al registrar');
       }

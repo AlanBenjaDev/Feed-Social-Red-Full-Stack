@@ -12,7 +12,7 @@ function Log() {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:3000/api/usuarios/login', {
+      const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/usuarios/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -26,7 +26,7 @@ function Log() {
       }
 
       localStorage.setItem('usuario', JSON.stringify(data.user));
-      navigate('/home'); // o donde quieras redirigir
+      navigate('/home'); 
 
     } catch (err) {
       console.error(err);
