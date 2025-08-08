@@ -6,8 +6,6 @@ const mysql = require('mysql2');
 const db = require('./db');
 const usuariosRouter = require('./usuarios');
 const publicacionRouter = require('./publicacion');
-const seguirSeguidosRouter = require('./seguirSeguidos');
-const perfilesRouter = require('./perfiles');
 const comentarioRouter = require('./comentario');
 
 const app = express();
@@ -26,8 +24,6 @@ app.use('/uploads', express.static('uploads'));
 
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/publicaciones', publicacionRouter);
-app.use('/api/perfiles', perfilesRouter);
-app.use('/api/seguir', seguirSeguidosRouter);
 app.use('/api/comentario', comentarioRouter);
 
 app.listen(port, () => {
