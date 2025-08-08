@@ -4,9 +4,9 @@ const cors = require('cors');
 const mysql = require('mysql2');
 
 const db = require('./db');
-const usuariosRouter = require('./usuarios');
-const publicacionRouter = require('./publicacion');
-const comentarioRouter = require('./comentario');
+const usuariosRouter = require('./usuarios.js');
+const publicacionRouter = require('./publicacion.js');
+const comentarioRouter = require('./comentario.js');
 
 const app = express();
 const port = process.env.PORT || 3000;
