@@ -21,5 +21,5 @@ app.use('/api/publicaciones', publicacionRouter);
 app.use('/api/comentario', comentarioRouter);
 
 app.listen(port, () => {
-  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`✅ Servidor corriendo en http://localhost:${port}`);
 });
