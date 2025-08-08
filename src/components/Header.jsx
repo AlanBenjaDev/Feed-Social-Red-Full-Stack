@@ -24,7 +24,7 @@ function Header() {
       </button>
 
       {visible && (
-        <div className='mt-4 flex flex-col gap-4'>
+        <div className='mt-4 flex flex-row gap-4'>
           <button
             onClick={() => navigate('/home')}
             className='bg-white text-blue-700 font-semibold px-5 py-3 rounded hover:bg-blue-100 shadow'
@@ -36,7 +36,7 @@ function Header() {
             onClick={() => navigate('/publicaciones')}
             className='bg-green-600 text-white font-semibold px-5 py-3 rounded hover:bg-green-700 shadow'
           >
-            Ver perfiles
+            Ir Al Feed
           </button>
 
           <button
