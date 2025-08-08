@@ -1,9 +1,7 @@
 
-import pool from './db.js';
+import db from './db.js';
 const router = express.Router();
 import express from 'express';
-
-
 
 
 
@@ -73,7 +71,7 @@ router.post('/enviar', async (req, res) => {
 });
 router.get('/likes', (req, res) => {
   const query = 'SELECT usuario_id, publicacion_id FROM likes';
-  pool.query(query, (err, results) => {
+  db.query(query, (err, results) => {
     if (err) {
       console.error('❌ Error en la consulta:', err);
       return res.status(500).json({ error: 'Error al contar los likes' });
@@ -83,13 +81,11 @@ router.get('/likes', (req, res) => {
 });
 router.post('/dar', async (req, res) => {
   try {
-    // 🔍 DEBUG: Mostrar todo el cuerpo recibido
+   
     console.log('BODY recibido en /dar:', req.body);
 
-    // ✅ Extraer datos del cuerpo
     const { usuario_id, publicacion_id } = req.body;
 
-    // 🛑 Validación: campos faltantes
     if (
       typeof usuario_id === 'undefined' ||
       typeof publicacion_id === 'undefined'
@@ -101,7 +97,6 @@ router.post('/dar', async (req, res) => {
       });
     }
 
-    // 🛑 Validación: deben ser números
     if (isNaN(Number(usuario_id)) || isNaN(Number(publicacion_id))) {
       return res.status(400).json({
         error: 'IDs inválidos',
@@ -109,10 +104,10 @@ router.post('/dar', async (req, res) => {
       });
     }
 
-    // ✅ DEBUG: Datos recibidos
+    
     console.log('Datos validados:', { usuario_id, publicacion_id });
 
-    // ✅ Consulta SQL corregida (solo 2 valores)
+ 
     const query = `
       INSERT INTO likes (publicacion_id, usuario_id)
       VALUES (?, ?)
@@ -122,7 +117,7 @@ router.post('/dar', async (req, res) => {
 
     const [result] = await pool.query(query, values);
 
-    // ✅ Respuesta OK
+ 
     res.status(201).json({
       success: true,
       message: 'Like subido con éxito',

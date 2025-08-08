@@ -1,13 +1,24 @@
-import express from 'express';
-import cors from 'cors';
-import pool from './db.js';
-import usuariosRouter from './usuarios.js';
-import publicacionRouter from './publicacion.js';
-import seguirSeguidosRouter from './seguirSeguidos.js';
-import perfilesRouter from './perfiles.js';
-import comentarioRouter from './comentario.js';
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const mysql = require('mysql');
+
+const pool = require('./db');
+const usuariosRouter = require('./usuarios');
+const publicacionRouter = require('./publicacion');
+const seguirSeguidosRouter = require('./seguirSeguidos');
+const perfilesRouter = require('./perfiles');
+const comentarioRouter = require('./comentario');
 
 const app = express();
+const port = process.env.PORT || 3000;
+
+const conecction = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
+});
 
 app.use(cors());
 app.use(express.json());
@@ -19,7 +30,6 @@ app.use('/api/perfiles', perfilesRouter);
 app.use('/api/seguir', seguirSeguidosRouter);
 app.use('/api/comentario', comentarioRouter);
 
-
-app.listen(3000, () => {
-  console.log('✅ Servidor corriendo en http://localhost:3000');
+app.listen(port, () => {
+  console.log(`✅ Servidor corriendo en http://localhost:${port}`);
 });

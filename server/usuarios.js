@@ -1,23 +1,23 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import pool from './db.js';
+import db from './db.js';
 
 const router = express.Router();
 const saltRounds = 10;
 
 router.post('/register', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const {user, email, password } = req.body;
 
-    if (!email || !password) {
+    if (!user ||!email || !password) {
       return res.status(400).json({ error: 'Faltan datos obligatorios' });
     }
 
-    const hash = await bcrypt.hash(password, 10); // O usá `saltRounds`
+    const hash = await bcrypt.hash(password, 10); 
 
-    await pool.query(
-      'INSERT INTO usuarios (role, email, password) VALUES (?, ?, ?)',
-      ['user', email, hash]  // ← role fijo por defecto
+    await db.query(
+      'INSERT INTO usuarios (user, email, password) VALUES (?, ?, ?)',
+      [user, email, hash]  
     );
 
     res.status(201).json({ message: 'Usuario registrado con éxito' });
@@ -38,9 +38,8 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Faltan datos' });
     }
 
-    // Buscar usuario por email
-    const [results] = await pool.query(
-      'SELECT id, role, password FROM usuarios WHERE email = ?',
+    const [results] = await db.query(
+      'SELECT id, user, password FROM usuarios WHERE email = ?',
       [email]
     );
 
