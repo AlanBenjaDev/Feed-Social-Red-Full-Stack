@@ -32,6 +32,8 @@ function SubirPublicacion() {
     try {
       const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/publicaciones/subirPublicacion', {
         method: 'POST',
+        credentials: 'include',
+
         body: formData,
       });
 
@@ -40,10 +42,10 @@ function SubirPublicacion() {
 
         alert('✅ Publicacion subida con éxito');
 
-        // Agregamos el nuevo producto al listado
+
         setPublicaciones(prev => [...prev, nuevaPublicacion]);
 
-        // Limpiamos el formulario
+      
         setUsuario_id('');
         setContenido('');
         setImg_url(null);

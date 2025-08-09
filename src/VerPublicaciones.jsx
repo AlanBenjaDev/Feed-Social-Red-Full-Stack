@@ -8,22 +8,33 @@ function VerPublicaciones() {
   const [mensajes, setMensajes] = useState({});
 
   useEffect(() => {
-    const cargarPublicaciones = async () => {
-      try {
-        setCargando(true);
-        const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/publicaciones/verPublicaciones');
-        if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
-        const data = await res.json();
-        setPublicaciones(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setCargando(false);
-      }
-    };
+  const cargarPublicaciones = async () => {
+    try {
+      setCargando(true);
+      const res = await fetch(
+        'https://feed-social-red-full-stack.onrender.com/api/publicaciones/verPublicaciones',
+        {
+          method: 'GET',
+          credentials: 'include', // 🔹 Envía cookies y credenciales
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
-    cargarPublicaciones();
-  }, []);
+      if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+      const data = await res.json();
+      setPublicaciones(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  cargarPublicaciones();
+}, []);
+
 
   useEffect(() => {
     const timeouts = Object.entries(mensajes).map(([publicacion_id, mensaje]) => {
@@ -60,6 +71,9 @@ function VerPublicaciones() {
       const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/comentario/enviar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+
+        credentials: 'include',
+
         body: JSON.stringify({
           comentario: texto,
           usuario_id,
@@ -120,6 +134,7 @@ function VerPublicaciones() {
     const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/comentario/dar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({
         usuario_id,
         publicacion_id

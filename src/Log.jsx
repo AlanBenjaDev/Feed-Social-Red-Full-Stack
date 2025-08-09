@@ -15,6 +15,8 @@ function Log() {
       const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/usuarios/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+
         body: JSON.stringify({ email, password })
       });
 

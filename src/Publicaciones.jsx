@@ -37,6 +37,8 @@ function Publicaciones({ usuario_id, id, contenido, img_url, total_likes, coment
       const response = await fetch('https://feed-social-red-full-stack.onrender.com/api/comentario/enviar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+
         body: JSON.stringify({
           comentario: comentario,
           usuario_id: usuarioLogueadoId,
@@ -65,6 +67,8 @@ function Publicaciones({ usuario_id, id, contenido, img_url, total_likes, coment
       const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/comentario/dar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+
         body: JSON.stringify({
           usuario_id: usuarioLogueadoId,
           publicacion_id: id,

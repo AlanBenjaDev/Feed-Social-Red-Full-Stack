@@ -16,6 +16,8 @@ function Create() {
       const res = await fetch('https://feed-social-red-full-stack.onrender.com/api/usuarios/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+
         body: JSON.stringify({ user, email, password }),
       });
 
